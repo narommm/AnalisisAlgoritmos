@@ -80,24 +80,26 @@ class ListaEnlazada{
         void cambiarPosicion(int pos1, int pos2){
             Nodo *tempI=inicio;
             Nodo *temp = inicio;
-            cont1=1;
-            cont2=1;
-            if(!valor){
-                cout<<"NO hay ningún valor para ser cambiado"<<endl;
-            }
+            int cont1=1;
+            int cont2=1;
             /*Caso trivial en el que solo haya un nodo en la lista ..... */
             /*Caso contrario, recorra la lista buscando los datos*/
-            else{
                 while(tempI){
                     if(cont1==pos1){
-                        datoPos1=tempI->dato;
+                        int datoPos1=tempI->dato;
+                        //cout<<tempI->dato<<endl;
+                        //cout<<"dato1"<<datoPos1;
                         while(temp){
-                            if(cont2==temp){
-                                datoPos2=temp->dato;
+                            if(cont2==pos2){
+                                int datoPos2=temp->dato;
+                                //cout<<temp->dato<<endl;
+                                //cout<<"dato2"<<datoPos2;
                                 int aux;
-                                aux = datoPos2;
-                                datoPos1=datoPos2;
-                                datoPos2=aux;
+                               // aux = datoPos1;
+                                //datoPos1=datoPos2;
+                                //datoPos2=aux;
+                                tempI->dato=datoPos2;
+                                temp->dato=datoPos1;
                                 
                             }
                             cont2++;
@@ -108,6 +110,7 @@ class ListaEnlazada{
                 }
                 tempI= tempI->sig;
                 cont1++;
+                }
         }
         ListaEnlazada(){
             inicio=nullptr;
@@ -120,7 +123,7 @@ int main()
     control.agregarElemento(2);
     control.agregarElemento(3);
     control.mostrarListaAdelante();
-    control.Eliminar(3);
+    control.cambiarPosicion(1,3);
     control.mostrarListaAdelante();
     return 0;
 }
