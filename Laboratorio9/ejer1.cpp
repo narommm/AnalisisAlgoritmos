@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-
+#include <iostream>
 using namespace std;
 
 struct node{
@@ -67,7 +67,7 @@ struct node *ancestro(struct node *root, int n1, int n2)
     return root;
 }
 
-int findLevel(struct node *root, int k, int level)
+int NivelNodo(struct node *root, int k, int nivel)
 {
     if (root == NULL)
     {
@@ -75,22 +75,22 @@ int findLevel(struct node *root, int k, int level)
     }
     if (root->key == k)
     {
-        return level;
+        return nivel;
     }
 
-    int left = findLevel(root->left, k, level + 1);
+    int left = NivelNodo(root->left, k, nivel + 1);
     if (left == -1)
     {
-        return findLevel(root->right, k, level + 1);
+        return NivelNodo(root->right, k, nivel + 1);
     }
     return left;
 }
 
-int findDistance(node *root, int a, int b)
+int distanciaNodo(node *root, int a, int b)
 {
     struct node *ancestro2 = ancestro(root, a, b);
-    int d1 = findLevel(ancestro2, a, 0);
-    int d2 = findLevel(ancestro2, b, 0);
+    int d1 = NivelNodo(ancestro2, a, 0);
+    int d2 = NivelNodo(ancestro2, b, 0);
 
     return d1 + d2;
 }
@@ -109,10 +109,10 @@ int main(){
     root = insert(root, 13);
     
     
-    int n1 = 4, n2 = 13, n3 = 1, n4 = 6;
+    int n1 = 4, n2 = 13, n3 = 1, n4 = 7;
     struct node *n = ancestro(root, n1, n2);
-    printf("Ancestro de %d y %d es %d \n", n1, n2, n->key);
+    printf("El nodo ancestro de %d y %d es %d \n", n1, n2, n->key);
     
-    cout << "Distancia entre " << n3 << " y " << n4 << " es " << findDistance(root, n3, n4) << endl;
+    cout << "Distancia entre el nodo " << n3 << " y el nodo " << n4 << " es " << distanciaNodo(root, n3, n4) << endl;
     return 0;
 }
